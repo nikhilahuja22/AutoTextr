@@ -1,0 +1,19 @@
+{
+  "name": "autotextr",
+  "version": "0.0.1",
+  "description": "Automated Custom Text Responder",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikhilahuja22/AutoTextr.git"
+  },
+  "author": "Sindhuja Ramini, Nikhil Ahuja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikhilahuja22/AutoTextr/issues"
+  },
+  "homepage": "https://github.com/nikhilahuja22/AutoTextr#readme"
+}
