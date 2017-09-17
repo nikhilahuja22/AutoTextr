@@ -4,11 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var request = require('request');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+var base_url = 'https://api.api.ai/v1'
 //
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +45,108 @@ var app = express();
 //   res.status(err.status || 500);
 //   res.render('error');
 // });
+var myid;
+var info;
+var get_options = {
+  url: 'https://api.api.ai/v1/intents',
+  headers: {
+    'Authorization': 'Bearer bb75324825e946c987ca99b39617e6a7'
+  }
+};
+
+var put_object = {
+   "userSays": [
+      {
+         "data": [
+            {
+               "text": "hey girl"
+            }
+         ],
+         "isTemplate": false,
+         "count": 0
+      }
+    ]
+}
+
+var put_options= {
+    method: 'PUT',
+    uri: 'https://api.api.ai/v1/intents/' + '7d27822d-3d57-4723-a8df-1b79809237d8',
+    headers: {
+        'Authorization': 'Bearer bb75324825e946c987ca99b39617e6a7',
+        'Content-Type' : 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify(put_object)
+};
+
+
+app.get('/intents', (req, res) => {
+    request(get_options, function callback(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        info = JSON.parse(body);
+        //var names_and_id;
+        // for (object in info) {
+        //     names_and_id += 'name:    ' + info[object].name + '   id:  ' + info[object].id + '\n';
+        //     if(info[object].name == 'Greetings') {
+        //         myid = info[object].name;
+        //     }
+        // }
+        res.send(info);
+      }
+    });
+});
+
+app.get('/putintents', (req, res) => {
+  request(put_options, function callback(error, response, body) {
+    if (error) {
+        console.log(error);
+    }
+    if (!error && response.statusCode == 200) {
+        info = JSON.parse(body);
+        res.send(info);
+        console.log('Hey put was successful');
+    }
+    res.send(response);
+  });
+});
+
+app.post('/update/:mystring', function (req, res) {
+  var temp = { "text": req.params["mystring"] };
+  var data = JSON.stringify(put_object["userSays"]);
+  //put_object["userSays"][0]["data"].push(temp);
+  request(put_options, function callback(error, response, body) {
+    if (error) {
+        console.log(error);
+    }
+    if (!error && response.statusCode == 200) {
+        info = JSON.parse(body);
+        res.send(info);
+        console.log('Hey put was successful');
+    }
+    res.send(response);
+  });
+  //res.send(put_object);
+
+});
+
+
+
+function callback(error, response, body) {
+  if (!error && response.statusCode == 200) {
+    var info = JSON.parse(body);
+    console.log(info.stargazers_count + " Stars");
+    console.log(info.forks_count + " Forks");
+  }
+}
+
+request.post(
+    'https://api.api.ai/v1',
+    { json: { key: 'value' } },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(put_object)
+        }
+    }
+);
 
 app.post('/inbound', (req, res) => {
     handleParams(req.body, res);
