@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to Users Page</p>
+    <form method="POST" action="/users/add">
+    	<label>Enter your first name</label>
+    	<input type="text" name="firstName" id="firstName" placeholder="firstname"/>
+    	<label>Enter your last name</label>
+    	<input type="text" name="lastName" id="lastName" placeholder="lastname"/>
+    	<input type="submit" value="Click to submit"/>
+    </form>
+  </body>
+</html>

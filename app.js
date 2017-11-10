@@ -12,21 +12,21 @@ var users = require('./routes/users');
 var app = express();
 
 var base_url = 'https://api.api.ai/v1'
-//
-// // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
-//
+var nexmo = require('nexmo');
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 // // uncomment after placing your favicon in /public
 // //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 //
-// app.use('/', index);
-// app.use('/users', users);
+app.use('/', index);
+app.use('/users', users);
 //
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
@@ -83,16 +83,20 @@ app.get('/intents', (req, res) => {
     request(get_options, function callback(error, response, body) {
       if (!error && response.statusCode == 200) {
         info = JSON.parse(body);
-        //var names_and_id;
-        // for (object in info) {
-        //     names_and_id += 'name:    ' + info[object].name + '   id:  ' + info[object].id + '\n';
-        //     if(info[object].name == 'Greetings') {
-        //         myid = info[object].name;
-        //     }
-        // }
-        res.send(info);
+        res.json(info);
       }
     });
+});
+
+
+app.get('send', (req, res) => {
+    client = nexmo.Client(key='API_KEY', secret='API_SECRET')
+
+    client.send_message({
+      'from': 'Nexmo',
+      'to': '+12138404870',
+      'text': 'Arpit I am sending this from Node.js'
+    })
 });
 
 app.get('/putintents', (req, res) => {
@@ -130,13 +134,13 @@ app.post('/update/:mystring', function (req, res) {
 
 
 
-function callback(error, response, body) {
-  if (!error && response.statusCode == 200) {
-    var info = JSON.parse(body);
-    console.log(info.stargazers_count + " Stars");
-    console.log(info.forks_count + " Forks");
-  }
-}
+// function callback(error, response, body) {
+//   if (!error && response.statusCode == 200) {
+//     var info = JSON.parse(body);
+//     console.log(info.stargazers_count + " Stars");
+//     console.log(info.forks_count + " Forks");
+//   }
+// }
 
 request.post(
     'https://api.api.ai/v1',
@@ -168,9 +172,5 @@ function handleParams(params, res) {
     }
     res.status(200).end();
 }
-
-const server = app.listen(3000, () => {
-        console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
-});
 
 module.exports = app;
