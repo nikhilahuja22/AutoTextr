@@ -50,7 +50,15 @@ router.get('/', function(req, res, next) {
   // });
 
   //res.send('respond with a resource');
-  res.render('users', {'title' : 'User page'});
+  User.find({}, function(err, users) {
+    if (err) {
+      console.log(err);
+    }
+    res.render('users', { 
+      title: 'Express',
+      users: users
+     });    
+  });
 });
 
 

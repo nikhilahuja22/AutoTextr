@@ -1,4 +1,4 @@
-var var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 Schema = mongoose.Schema;
 
@@ -21,7 +21,6 @@ var OrderSchema = new Schema({
 	},
 	status: {
 		type: String,
-		default: 
 	}
 
 });
