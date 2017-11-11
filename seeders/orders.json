@@ -1,0 +1,21 @@
+
+{
+	"name": "Table",
+	"quantity": "1",
+	"status": "PENDING"
+}
+{
+	"name": "Chair",
+	"quantity": "5",
+	"status": "PENDING"
+}
+{
+	"name": "Lamp",
+	"quantity": "3",
+	"status": "DELIVERED"
+}
+{
+	"name": "Bread",
+	"quantity": "1",
+	"status": "DELIVERED"
+}

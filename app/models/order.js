@@ -24,3 +24,5 @@ var OrderSchema = new Schema({
 	}
 
 });
+
+module.exports = mongoose.model('Order', OrderSchema);
