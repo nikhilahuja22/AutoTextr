@@ -6,7 +6,7 @@
     
     <title><%= title %></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> 
-    <!--link rel='stylesheet' href='/stylesheets/style.css' /-->
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 
 
   </head>
@@ -16,6 +16,7 @@
         <h1>User Dashboard</h1>
       </div>
   </div>
+  <div class= container>
     <p>Welcome to Users Page</p>
     <form method="POST" action="/users/add">
     	<label>Enter your first name</label>
@@ -24,6 +25,7 @@
     	<input type="text" name="lastName" id="lastName" placeholder="lastname"/>
     	<input type="submit" value="Click to submit"/>
     </form>
+  </div>
 
     <h1> Pending Deliveries </h1>
     <% orders.forEach(function(order) { %>
